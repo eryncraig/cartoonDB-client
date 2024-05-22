@@ -1,0 +1,11 @@
+{
+  "name": "cartoondb-client",
+  "version": "1.0.0",
+  "description": "Client side of cartoon database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eryn Craig",
+  "license": "ISC"
+}

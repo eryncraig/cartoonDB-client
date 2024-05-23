@@ -1,12 +1,11 @@
 import { createRoot } from 'react-dom/client';
 
 import './index.scss';
+import { MainView } from './components/MainView/main-view';
 
 const MyCartoonApp = () => {
   return (
-    <div className='my-cartoon'>
-      <div>Good Morning</div>
-    </div>
+    <MainView />
   );
 };
 

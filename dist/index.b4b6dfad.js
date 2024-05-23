@@ -142,7 +142,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"3P2WW":[function(require,module,exports) {
+})({"hX4IU":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -583,9 +583,9 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     });
 }
 
-},{}],"kVCJy":[function(require,module,exports) {
-var Refresh = require("316ff7568a79f0dd");
-var ErrorOverlay = require("2a3002105bdf7bd9");
+},{}],"3v16m":[function(require,module,exports) {
+var Refresh = require("679aa2a7932dfd9a");
+var ErrorOverlay = require("fda264981c037c15");
 Refresh.injectIntoGlobalHook(window);
 window.$RefreshReg$ = function() {};
 window.$RefreshSig$ = function() {
@@ -604,11 +604,11 @@ window.addEventListener("parcelhmraccept", ()=>{
     ErrorOverlay.dismissRuntimeErrors();
 });
 
-},{"316ff7568a79f0dd":"dwHPI","2a3002105bdf7bd9":"ctX0x"}],"dwHPI":[function(require,module,exports) {
+},{"679aa2a7932dfd9a":"8j0Ez","fda264981c037c15":"iwTno"}],"8j0Ez":[function(require,module,exports) {
 "use strict";
-module.exports = require("499d91030eec2d94");
+module.exports = require("30808ca3404a97ea");
 
-},{"499d91030eec2d94":"9J99e"}],"9J99e":[function(require,module,exports) {
+},{"30808ca3404a97ea":"3BAzu"}],"3BAzu":[function(require,module,exports) {
 /** @license React v0.9.0
  * react-refresh-runtime.development.js
  *
@@ -1068,8 +1068,8 @@ module.exports = require("499d91030eec2d94");
     exports.setSignature = setSignature;
 })();
 
-},{}],"ctX0x":[function(require,module,exports) {
-var process = require("95ab5279ebf901c1");
+},{}],"iwTno":[function(require,module,exports) {
+var process = require("c8c259ac2ce92884");
 !function(e, t) {
     module.exports = t();
 }(window, function() {
@@ -2799,7 +2799,7 @@ var process = require("95ab5279ebf901c1");
     ]);
 });
 
-},{"95ab5279ebf901c1":"d5jf4"}],"d5jf4":[function(require,module,exports) {
+},{"c8c259ac2ce92884":"d5jf4"}],"d5jf4":[function(require,module,exports) {
 // shim for using process in browser
 var process = module.exports = {};
 // cached from whatever global is present so that test runners that stub it
@@ -2954,19 +2954,11 @@ try {
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
 var _indexScss = require("./index.scss");
+var _mainView = require("./components/MainView/main-view");
 const MyCartoonApp = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "my-cartoon",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: "Good Morning"
-        }, void 0, false, {
-            fileName: "src/index.jsx",
-            lineNumber: 8,
-            columnNumber: 7
-        }, undefined)
-    }, void 0, false, {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 7,
+        lineNumber: 8,
         columnNumber: 5
     }, undefined);
 };
@@ -2975,7 +2967,7 @@ const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyCartoonApp, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 16,
+    lineNumber: 15,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -2986,7 +2978,7 @@ $RefreshReg$(_c, "MyCartoonApp");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hwK3Z"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","./components/MainView/main-view":"jovED","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27229,9 +27221,205 @@ module.exports = require("ef03b89c8fe2794e");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"lJZlQ":[function() {},{}],"hwK3Z":[function(require,module,exports) {
+},{}],"lJZlQ":[function() {},{}],"jovED":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$0362 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$0362.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MainView", ()=>MainView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _movieCard = require("../MovieCard/movie-card");
+var _movieView = require("../MovieView/movie-view");
+var _s = $RefreshSig$();
+const MainView = ()=>{
+    _s();
+    const [movies, setMovies] = (0, _react.useState)([
+        {
+            _id: "ObjectId('663be5c587690ab53c193f49')",
+            title: "Prince of Egypt",
+            summary: "The biblical tale of Moses, from his birth to leading the Israelites out of Egypt, is brought to life in this animated epic filled with stunning visuals and powerful music.",
+            director: {
+                name: "Brenda Chapman, Steve Hickner, Simon Wells",
+                bio: "Brenda Chapman, Steve Hickner, and Simon Wells are American filmmakers and animators, known for their work on various animated films, including The Lion King and The Prince of Egypt."
+            },
+            year: 1998,
+            genre: {
+                name: "Animation/Drama",
+                definition: "Animation/Drama explores profound themes and emotional storytelling, often adapting classic tales or historical events into visually captivating animated films."
+            },
+            imagePath: null,
+            featured: false
+        },
+        {
+            _id: "ObjectId('663be5dc87690ab53c193f4a')",
+            title: "Wizards",
+            summary: "In a post-apocalyptic world where magic has returned, two wizard brothers, Avatar and Blackwolf, battle for control over humanity's fate, leading to an epic confrontation between good and evil.",
+            director: {
+                name: "Ralph Bakshi",
+                bio: "Ralph Bakshi is an American animator and filmmaker, known for his innovative use of animation techniques and his provocative storytelling style.",
+                birth: "1938-10-29"
+            },
+            year: 1977,
+            genre: {
+                name: "Animation/Fantasy",
+                definition: "Animation/Fantasy combines imaginative storytelling with visually stunning animation, often featuring fantastical worlds and magical adventures."
+            },
+            imagePath: null,
+            featured: false
+        },
+        {
+            _id: " ObjectId('663be68887690ab53c193f4b')",
+            title: "Perfect Blue",
+            summary: "A young pop singer's transition from a music idol to an actress takes a dark turn as she is stalked by an obsessed fan, blurring the lines between reality and hallucination.",
+            director: {
+                name: "Satoshi Kon",
+                bio: "Satoshi Kon was a Japanese film director, animator, screenwriter, and manga artist, known for his psychological thrillers and innovative storytelling techniques.",
+                birth: "1963-10-12",
+                death: "2010-08-24"
+            },
+            year: 1997,
+            genre: {
+                name: "Psychological/Thriller",
+                definition: "Psychological/Thriller films create tension and suspense through psychological manipulation and complex narratives, often exploring themes of identity, perception, and reality."
+            },
+            imagePath: null,
+            featured: false
+        },
+        {
+            _id: "ObjectId('663be6ab87690ab53c193f4c')",
+            title: "My Neighbor Totoro",
+            summary: "Two young sisters, Satsuki and Mei, move to the countryside with their father and encounter friendly forest spirits, including the enigmatic Totoro, in this heartwarming tale of magic and friendship.",
+            director: {
+                name: "Hayao Miyazaki",
+                bio: "Hayao Miyazaki is a Japanese animator, filmmaker, and co-founder of Studio Ghibli, known for his imaginative and emotionally resonant storytelling.",
+                birth: "1941-01-05"
+            },
+            year: 1988,
+            genre: {
+                name: "Fantasy",
+                definition: "Fantasy/Family films transport audiences to magical worlds and heartwarming adventures, often emphasizing themes of friendship, courage, and the wonder of childhood."
+            },
+            imagePath: null,
+            featured: false
+        }
+    ]);
+    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+        movie: selectedMovie,
+        onBackClick: ()=>{
+            setSelectedMovie(null);
+        }
+    }, void 0, false, {
+        fileName: "src/components/MainView/main-view.jsx",
+        lineNumber: 81,
+        columnNumber: 7
+    }, undefined);
+    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: "The list of movies is empty!"
+    }, void 0, false, {
+        fileName: "src/components/MainView/main-view.jsx",
+        lineNumber: 89,
+        columnNumber: 12
+    }, undefined);
+    else return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: movies.map((movie)=>{
+            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                movie: movie,
+                onMovieClick: (newSelectedMovie)=>{
+                    setSelectedMovie(newSelectedMovie);
+                }
+            }, movie.id, false, {
+                fileName: "src/components/MainView/main-view.jsx",
+                lineNumber: 95,
+                columnNumber: 13
+            }, undefined);
+        })
+    }, void 0, false, {
+        fileName: "src/components/MainView/main-view.jsx",
+        lineNumber: 92,
+        columnNumber: 7
+    }, undefined);
+};
+_s(MainView, "dQXIK6k69df5aS1Ti841xbW0WXU=");
+_c = MainView;
+var _c;
+$RefreshReg$(_c, "MainView");
+
+  $parcel$ReactRefreshHelpers$0362.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../MovieCard/movie-card":"dg3Ls","../MovieView/movie-view":"9Uua1","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP"}],"dg3Ls":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$2506 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$2506.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const MovieCard = ({ movie, onMovieClick })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        onClick: ()=>{
+            onMovieClick(movie);
+        },
+        children: movie.title
+    }, void 0, false, {
+        fileName: "src/components/MovieCard/movie-card.jsx",
+        lineNumber: 3,
+        columnNumber: 5
+    }, undefined);
+};
+_c = MovieCard;
+var _c;
+$RefreshReg$(_c, "MovieCard");
+
+  $parcel$ReactRefreshHelpers$2506.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP"}],"i8PzX":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"5ttRP":[function(require,module,exports) {
 "use strict";
-var Refresh = require("dee24b3c2edb5e9d");
+var Refresh = require("9c44ae1f88b07d6");
 function debounce(func, delay) {
     {
         let timeout = undefined;
@@ -27367,6 +27555,145 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"dee24b3c2edb5e9d":"dwHPI"}]},["3P2WW","kVCJy","d8Dch"], "d8Dch", "parcelRequirebe64")
+},{"9c44ae1f88b07d6":"8j0Ez"}],"9Uua1":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5d84 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5d84.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieView", ()=>MovieView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const MovieView = ({ movie, onBackClick })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                    src: movie.image
+                }, void 0, false, {
+                    fileName: "src/components/MovieView/movie-view.jsx",
+                    lineNumber: 5,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/MovieView/movie-view.jsx",
+                lineNumber: 4,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Title: "
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 8,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.title
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 9,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/MovieView/movie-view.jsx",
+                lineNumber: 7,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Director: "
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 12,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.director.name
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 13,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/MovieView/movie-view.jsx",
+                lineNumber: 11,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Released: "
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 16,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.year
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 17,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/MovieView/movie-view.jsx",
+                lineNumber: 15,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Synopsis: "
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 20,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.summary
+                    }, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 21,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/MovieView/movie-view.jsx",
+                lineNumber: 19,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: onBackClick,
+                children: "Back"
+            }, void 0, false, {
+                fileName: "src/components/MovieView/movie-view.jsx",
+                lineNumber: 23,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/MovieView/movie-view.jsx",
+        lineNumber: 3,
+        columnNumber: 5
+    }, undefined);
+};
+_c = MovieView;
+var _c;
+$RefreshReg$(_c, "MovieView");
+
+  $parcel$ReactRefreshHelpers$5d84.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP"}]},["hX4IU","3v16m","d8Dch"], "d8Dch", "parcelRequirebe64")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

@@ -10,8 +10,8 @@ export const MainView = () => {
   useEffect(() => {
     fetch('https://cartoon-db-8718021d05a1.herokuapp.com/movies')
       .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.movies.map((movie) => {
+      .then((movies) => {
+        const moviesFromApi = movies.map((movie) => {
           return {
             id: movie._id,
             title: movie.title,

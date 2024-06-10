@@ -1,14 +1,32 @@
 import { useEffect, useState } from "react";
 import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
+import { LoginView } from "../LoginView/login-view";
 
 export const MainView = () => {
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
+  const storedToken = localStorage.getItem("token");
+
+  const [user, setUser] = useState(storedUser ? storedUser : null)
+
   const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
+  const [token, setToken] = useState(storedToken ? storedToken : null);
+
   useEffect(() => {
-    fetch('https://cartoon-db-8718021d05a1.herokuapp.com/movies')
+    if (!token) {
+      return;
+    }
+
+    fetch('https://cartoon-db-8718021d05a1.herokuapp.com/movies',
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
       .then((response) => response.json())
       .then((movies) => {
         const moviesFromApi = movies.map((movie) => {
@@ -32,13 +50,34 @@ export const MainView = () => {
         });
         setMovies(moviesFromApi);
       })
-  })
+  }, [token]);
+
+  if (!user) {
+    return <LoginView onLoggedIn={(user, token) => {
+      setUser(user);
+      setToken(token);
+      localStorage.clear();
+    }} />
+  }
 
   if (selectedMovie) {
+    let similarMovies = movies.filter(movie => movie.genre.name === selectedMovie.genre.name && movie.id !== selectedMovie.id);
     return (
-      <MovieView movie={selectedMovie} onBackClick={() => {
-        setSelectedMovie(null);
-      }} />
+      <>
+        <MovieView movie={selectedMovie} onBackClick={() => {
+          setSelectedMovie(null);
+        }} />
+        <hr />
+        <h2>Similar Movies</h2>
+        {
+          similarMovies.map((movie) => {
+            return (
+              <MovieCard movie={movie} key={movie.id} onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+              }} />
+            )
+          })}
+      </>
     )
   }
 
@@ -48,6 +87,12 @@ export const MainView = () => {
   } else {
     return (
       <div>
+        <button
+          onClick={() => {
+            setUser(null);
+            setToken(null);
+          }}
+        >Logout</button>
         {movies.map((movie) => {
           return (
             <MovieCard movie={movie} key={movie.id} onMovieClick={(newSelectedMovie) => {

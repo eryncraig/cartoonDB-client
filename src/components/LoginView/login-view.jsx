@@ -9,8 +9,8 @@ export const LoginView = () => {
     event.preventDefault();
 
     const data = {
-      access: username,
-      secret: password
+      username: username,
+      password: password
     }
 
     fetch("https://cartoon-db-8718021d05a1.herokuapp.com/login", {

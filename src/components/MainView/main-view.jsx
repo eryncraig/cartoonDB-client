@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../LoginView/login-view";
+import { SignupView } from "../SignupView/signup-view";
 
 export const MainView = () => {
 
@@ -51,13 +52,27 @@ export const MainView = () => {
       })
   }, [token]);
 
+  const handleLoggedIn = (user, token) => {
+    setUser(user);
+    setToken(token);
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  };
+
   if (!user) {
-    return <LoginView onLoggedIn={(user, token) => {
-      setUser(user);
-      setToken(token);
-      localStorage.clear();
-    }} />
-  }
+    return (
+      <>
+        <LoginView onLoggedIn={handleLoggedIn} /> or < SignupView />
+      </>
+    )
+  };
 
   if (selectedMovie) {
     let similarMovies = movies.filter(movie => movie.genre.name === selectedMovie.genre.name && movie.id !== selectedMovie.id);
@@ -87,10 +102,7 @@ export const MainView = () => {
     return (
       <div>
         <button
-          onClick={() => {
-            setUser(null);
-            setToken(null);
-          }}
+          onClick={handleLogout}
         >Logout</button>
         {movies.map((movie) => {
           return (

@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-export const LoginView = () => {
+export const LoginView = (onLoggedIn) => {
   const [username, setUsername] = useState("");
-
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
@@ -19,7 +18,12 @@ export const LoginView = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then((response) => response.json())
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json()
+    })
       .then((data) => {
         console.log("Login response: ", data);
         if (data.user) {
@@ -30,7 +34,8 @@ export const LoginView = () => {
           alert("No such user.");
         }
       }).catch((e) => {
-        alert("Something went wrong. " + e)
+        console.error("Login error: ", e)
+        alert("Something went wrong. " + e.message)
       })
 
   }

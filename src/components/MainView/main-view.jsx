@@ -25,8 +25,7 @@ export const MainView = () => {
     fetch('https://cartoon-db-8718021d05a1.herokuapp.com/movies',
       {
         headers: { Authorization: `Bearer ${token}` }
-      }
-    )
+      })
       .then((response) => response.json())
       .then((movies) => {
         const moviesFromApi = movies.map((movie) => {

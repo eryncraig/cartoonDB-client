@@ -1,5 +1,4 @@
-$color: steelblue;
+$primary: SeaGreen;
+$body-bg: Honeydew;
 
-.my-cartoon {
-  color: $color;
-}
+@import '~bootstrap/scss/bootstrap.scss';

@@ -1,11 +1,14 @@
 import { createRoot } from 'react-dom/client';
+import { MainView } from './components/MainView/main-view';
+import { Container } from 'react-bootstrap';
 
 import './index.scss';
-import { MainView } from './components/MainView/main-view';
 
 const MyCartoonApp = () => {
   return (
-    <MainView />
+    <Container>
+      <MainView />
+    </Container>
   );
 };
 

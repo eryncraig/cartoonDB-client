@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -45,39 +46,42 @@ export const SignupView = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       {error && <div>{error}</div>}
-      <label>
-        Username:
-        <input
+      <Form.Group controlId="formUsername">
+        <Form.Label>
+          Username: </Form.Label>
+        <Form.Control
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
           minLength={2}
         />
-      </label>
-      <label>
-        Name (optional):
-        <input
+      </Form.Group>
+      <Form.Group controlId="formName">
+        <Form.Label>
+          Name (optional): </Form.Label>
+        <Form.Control
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </Form.Group>
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength={8}
         />
-      </label>
-      <label>
-        Confirm Password:
-        <input
+      </Form.Group>
+      <Form.Group controlId="formConfirmPassword">
+        <Form.Label>
+          Confirm Password: </Form.Label>
+        <Form.Control
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
@@ -87,10 +91,10 @@ export const SignupView = () => {
         {password !== confirmPassword && (
           <span style={{ color: 'red' }}>Passwords do not match</span>
         )}
-      </label>
-      <label>
-        Email:
-        <input
+      </Form.Group>
+      <Form.Group controlId="formEmail">
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -99,18 +103,18 @@ export const SignupView = () => {
           onInput={(e) => e.target.setCustomValidity('')}
           required
         />
-      </label>
-      <label>
-        Birthdate:
-        <input
+      </Form.Group>
+      <Form.Group controlId="formBirthdate">
+        <Form.Label>Birthdate:</Form.Label>
+        <Form.Control
           type="date"
           value={birthdate}
           onChange={(e) => setBirthdate(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+      </Form.Group>
+      <Button type="submit">Submit</Button>
+    </Form>
   )
 
 }

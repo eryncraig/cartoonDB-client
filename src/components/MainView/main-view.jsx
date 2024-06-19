@@ -41,6 +41,7 @@ export const MainView = () => {
               birth: movie.director.birth,
               death: movie.director.death
             },
+            year: movie.year,
             genre: {
               name: movie.genre.name,
               definition: movie.genre.definition

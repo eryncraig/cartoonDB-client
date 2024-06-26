@@ -3,20 +3,18 @@ import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../LoginView/login-view";
 import { SignupView } from "../SignupView/signup-view";
+import { ProfileView } from "../ProfileView/profile-view";
 import { Col, Row, Button } from "react-bootstrap";
+import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
+import { NavigationBar } from "../NavigationBar/navigation-bar";
 
 export const MainView = () => {
 
   const storedUser = JSON.parse(localStorage.getItem("user"));
-
   const storedToken = localStorage.getItem("token");
 
   const [user, setUser] = useState(storedUser ? storedUser : null)
-
   const [movies, setMovies] = useState([]);
-
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
   const [token, setToken] = useState(storedToken ? storedToken : null);
 
   useEffect(() => {
@@ -54,9 +52,6 @@ export const MainView = () => {
       })
   }, [token]);
 
-  const similarMovies = selectedMovie ? movies.filter(
-    (movie) => movie.genre.name === selectedMovie.genre.name && movie.id !== selectedMovie.id) : [];
-
 
   const handleLoggedIn = (user, token) => {
     setUser(user);
@@ -72,48 +67,117 @@ export const MainView = () => {
     localStorage.removeItem("token");
   };
 
-  return (
-    <Row className="justify-content-md-center">
-      {!user ? (
-        <Col>
-          <LoginView onLoggedIn={handleLoggedIn} /> or < SignupView />
-        </Col>
-      ) : selectedMovie ? (
-        <>
-          <Col md={8}>
-            <MovieView movie={selectedMovie} onBackClick={() => {
-              setSelectedMovie(null);
-            }} />
-          </Col>
-          <hr />
-          <h2>Similar Movies</h2>
-          {similarMovies.map((movie) => (
-            <Col md={2} className="mb-5" key={movie.id}>
-              <MovieCard movie={movie} onMovieClick={(newSelectedMovie) => {
-                setSelectedMovie(newSelectedMovie);
-              }} />
-            </Col>
-          ))}
+  const addToFavorites = (movieId) => {
+    fetch(`https://cartoon-db-8718021d05a1.herokuapp.com/users/${user.username}/movies/${movieId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          const updatedUser = { ...user, favorites: [...user.favorites, movieId] };
+          setUser(updatedUser);
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+        } else {
+          console.error('Failed to add movie to favorites');
+        }
+      }).catch((error) => {
+        console.error('Error: ', error);
+      })
+  };
 
-        </>
-      ) : movies.length === 0 ? (
-        <div>The list of movies is empty!</div>
-      ) : (
-        <>
-          {movies.map((movie) => (
-            <Col className="mb-5" key={movie.id} md={3}>
-              <MovieCard movie={movie} onMovieClick={(newSelectedMovie) => {
-                setSelectedMovie(newSelectedMovie);
-              }} />
-            </Col>
-          ))}
-          <Button
-            md={6}
-            variant="primary"
-            onClick={handleLogout}
-          >Logout</Button>
-        </>
-      )}
-    </Row>
+  return (
+    <BrowserRouter>
+      <NavigationBar user={user} onLoggedOut={handleLogout} />
+      <Row className="justify-content-md-center">
+        <Routes>
+          <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    < SignupView />
+                  </Col>
+                )}{" "}
+              </>
+            } />
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <LoginView onLoggedIn={handleLoggedIn} />
+                  </Col>
+                )
+                }
+              </>
+            }
+          />
+          <Route
+            path="/users/:username"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <>
+                    <Col md={8}>
+                      <ProfileView user={user} movies={movies} token={token} setUser={setUser} onAddToFavorites={addToFavorites} />
+                    </Col>
+                  </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/movies/:movieId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list of movies is empty!</Col>
+                ) : (
+                  <>
+                    <Col md={8}>
+                      <MovieView movies={movies} />
+                    </Col>
+                  </>
+                )}
+
+              </>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <>
+                    {movies.map((movie) => (
+                      <Col className="mb-5" key={movie.id} md={3}>
+                        <MovieCard movie={movie} onAddToFavorites={addToFavorites} />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+        </Routes>
+      </Row>
+    </BrowserRouter>
   )
 }

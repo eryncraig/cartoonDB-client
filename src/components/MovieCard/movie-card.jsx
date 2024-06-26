@@ -1,19 +1,20 @@
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movie, onMovieClick }) => {
+export const MovieCard = ({ movie, onAddToFavorites }) => {
   return (
-    <Card
-      className="h-100"
-      onClick={() => {
-        onMovieClick(movie);
-      }}
-    >
+    <Card className="h-100">
       <Card.Img variant="top" src={movie.image} className="img-fluid" />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director.name}</Card.Text>
-        <Button>❤️</Button>
+        {onAddToFavorites && (
+          <Button onClick={() => onAddToFavorites(movie.id)}>❤️</Button>)
+        }
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+          <Button>Read More</Button>
+        </Link>
       </Card.Body>
     </Card>
   )
@@ -35,6 +36,7 @@ MovieCard.propTypes = {
     }),
     image: PropTypes.string,
     featured: PropTypes.bool
-  })
+  }).isRequired,
+  onAddToFavorites: PropTypes.func
 }
 

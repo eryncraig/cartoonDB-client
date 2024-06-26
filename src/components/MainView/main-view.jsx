@@ -68,6 +68,17 @@ export const MainView = () => {
   };
 
   const addToFavorites = (movieId) => {
+    if (!token) {
+      return;
+    }
+
+    const movie = movies.find((m) => m.id === movieId)
+
+    if (!movie) {
+      console.error('Movie not found');
+      return;
+    }
+
     fetch(`https://cartoon-db-8718021d05a1.herokuapp.com/users/${user.username}/movies/${movieId}`, {
       method: 'PUT',
       headers: {
@@ -80,8 +91,31 @@ export const MainView = () => {
           const updatedUser = { ...user, favorites: [...user.favorites, movieId] };
           setUser(updatedUser);
           localStorage.setItem('user', JSON.stringify(updatedUser));
+          alert(`Added ${movie.title} to your favorites!`)
         } else {
           console.error('Failed to add movie to favorites');
+        }
+      }).catch((error) => {
+        console.error('Error: ', error);
+      })
+  };
+
+  const removeFromFavorites = (movieId) => {
+    fetch(`https://cartoon-db-8718021d05a1.herokuapp.com/users/${user.username}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          const updatedFavorites = user.favorites.filter(id => id !== movieId);
+          const updatedUser = { ...user, favorites: updatedFavorites };
+          setUser(updatedUser);
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+        } else {
+          console.error('Failed to remove movie from favorites');
         }
       }).catch((error) => {
         console.error('Error: ', error);
@@ -91,7 +125,7 @@ export const MainView = () => {
   return (
     <BrowserRouter>
       <NavigationBar user={user} onLoggedOut={handleLogout} />
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-md-center row-cols-auto">
         <Routes>
           <Route
             path="/signup"
@@ -130,7 +164,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     <Col md={8}>
-                      <ProfileView user={user} movies={movies} token={token} setUser={setUser} onAddToFavorites={addToFavorites} />
+                      <ProfileView user={user} movies={movies} token={token} setUser={setUser} onAddToFavorites={addToFavorites} onRemoveFavorite={removeFromFavorites} />
                     </Col>
                   </>
                 )}
@@ -147,8 +181,8 @@ export const MainView = () => {
                   <Col>The list of movies is empty!</Col>
                 ) : (
                   <>
-                    <Col md={8}>
-                      <MovieView movies={movies} />
+                    <Col className="col-md-8 col-sm-6">
+                      <MovieView movies={movies} onAddToFavorites={addToFavorites} onRemoveFavorite={removeFromFavorites} />
                     </Col>
                   </>
                 )}
@@ -167,8 +201,8 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-5" key={movie.id} md={3}>
-                        <MovieCard movie={movie} onAddToFavorites={addToFavorites} />
+                      <Col sm={12} md={6} lg={3} className="mb-5" key={movie.id} >
+                        <MovieCard movie={movie} onAddToFavorites={addToFavorites} onRemoveFavorite={removeFromFavorites} />
                       </Col>
                     ))}
                   </>

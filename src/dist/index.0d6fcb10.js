@@ -2958,6 +2958,7 @@ var _reactBootstrap = require("react-bootstrap");
 var _indexScss = require("./index.scss");
 const MyCartoonApp = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+        className: "container-fluid",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
             fileName: "src/index.jsx",
             lineNumber: 10,
@@ -27301,6 +27302,12 @@ const MainView = ()=>{
         localStorage.removeItem("token");
     };
     const addToFavorites = (movieId)=>{
+        if (!token) return;
+        const movie = movies.find((m)=>m.id === movieId);
+        if (!movie) {
+            console.error("Movie not found");
+            return;
+        }
         fetch(`https://cartoon-db-8718021d05a1.herokuapp.com/users/${user.username}/movies/${movieId}`, {
             method: "PUT",
             headers: {
@@ -27318,7 +27325,29 @@ const MainView = ()=>{
                 };
                 setUser(updatedUser);
                 localStorage.setItem("user", JSON.stringify(updatedUser));
+                alert(`Added ${movie.title} to your favorites!`);
             } else console.error("Failed to add movie to favorites");
+        }).catch((error)=>{
+            console.error("Error: ", error);
+        });
+    };
+    const removeFromFavorites = (movieId)=>{
+        fetch(`https://cartoon-db-8718021d05a1.herokuapp.com/users/${user.username}/movies/${movieId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        }).then((response)=>{
+            if (response.ok) {
+                const updatedFavorites = user.favorites.filter((id)=>id !== movieId);
+                const updatedUser = {
+                    ...user,
+                    favorites: updatedFavorites
+                };
+                setUser(updatedUser);
+                localStorage.setItem("user", JSON.stringify(updatedUser));
+            } else console.error("Failed to remove movie from favorites");
         }).catch((error)=>{
             console.error("Error: ", error);
         });
@@ -27330,11 +27359,11 @@ const MainView = ()=>{
                 onLoggedOut: handleLogout
             }, void 0, false, {
                 fileName: "src/components/MainView/main-view.jsx",
-                lineNumber: 93,
+                lineNumber: 127,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                className: "justify-content-md-center",
+                className: "justify-content-md-center row-cols-auto",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27345,18 +27374,18 @@ const MainView = ()=>{
                                         to: "/"
                                     }, void 0, false, {
                                         fileName: "src/components/MainView/main-view.jsx",
-                                        lineNumber: 101,
+                                        lineNumber: 135,
                                         columnNumber: 19
                                     }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 5,
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                                             fileName: "src/components/MainView/main-view.jsx",
-                                            lineNumber: 104,
+                                            lineNumber: 138,
                                             columnNumber: 21
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/MainView/main-view.jsx",
-                                        lineNumber: 103,
+                                        lineNumber: 137,
                                         columnNumber: 19
                                     }, void 0),
                                     " "
@@ -27364,7 +27393,7 @@ const MainView = ()=>{
                             }, void 0, true)
                         }, void 0, false, {
                             fileName: "src/components/MainView/main-view.jsx",
-                            lineNumber: 96,
+                            lineNumber: 130,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27374,7 +27403,7 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 114,
+                                    lineNumber: 148,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                     md: 5,
@@ -27382,18 +27411,18 @@ const MainView = ()=>{
                                         onLoggedIn: handleLoggedIn
                                     }, void 0, false, {
                                         fileName: "src/components/MainView/main-view.jsx",
-                                        lineNumber: 117,
+                                        lineNumber: 151,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 116,
+                                    lineNumber: 150,
                                     columnNumber: 19
                                 }, void 0)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/MainView/main-view.jsx",
-                            lineNumber: 109,
+                            lineNumber: 143,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27404,7 +27433,7 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 129,
+                                    lineNumber: 163,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -27414,22 +27443,23 @@ const MainView = ()=>{
                                             movies: movies,
                                             token: token,
                                             setUser: setUser,
-                                            onAddToFavorites: addToFavorites
+                                            onAddToFavorites: addToFavorites,
+                                            onRemoveFavorite: removeFromFavorites
                                         }, void 0, false, {
                                             fileName: "src/components/MainView/main-view.jsx",
-                                            lineNumber: 133,
+                                            lineNumber: 167,
                                             columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/MainView/main-view.jsx",
-                                        lineNumber: 132,
+                                        lineNumber: 166,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/MainView/main-view.jsx",
-                            lineNumber: 124,
+                            lineNumber: 158,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27440,34 +27470,36 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 145,
+                                    lineNumber: 179,
                                     columnNumber: 19
                                 }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                     children: "The list of movies is empty!"
                                 }, void 0, false, {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 147,
+                                    lineNumber: 181,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                        md: 8,
+                                        className: "col-md-8 col-sm-6",
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                                            movies: movies
+                                            movies: movies,
+                                            onAddToFavorites: addToFavorites,
+                                            onRemoveFavorite: removeFromFavorites
                                         }, void 0, false, {
                                             fileName: "src/components/MainView/main-view.jsx",
-                                            lineNumber: 151,
+                                            lineNumber: 185,
                                             columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/MainView/main-view.jsx",
-                                        lineNumber: 150,
+                                        lineNumber: 184,
                                         columnNumber: 21
                                     }, void 0)
                                 }, void 0, false)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/MainView/main-view.jsx",
-                            lineNumber: 140,
+                            lineNumber: 174,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27478,53 +27510,56 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 164,
+                                    lineNumber: 198,
                                     columnNumber: 19
                                 }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                     children: "The list is empty!"
                                 }, void 0, false, {
                                     fileName: "src/components/MainView/main-view.jsx",
-                                    lineNumber: 166,
+                                    lineNumber: 200,
                                     columnNumber: 19
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                            sm: 12,
+                                            md: 6,
+                                            lg: 3,
                                             className: "mb-5",
-                                            md: 3,
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                 movie: movie,
-                                                onAddToFavorites: addToFavorites
+                                                onAddToFavorites: addToFavorites,
+                                                onRemoveFavorite: removeFromFavorites
                                             }, void 0, false, {
                                                 fileName: "src/components/MainView/main-view.jsx",
-                                                lineNumber: 171,
+                                                lineNumber: 205,
                                                 columnNumber: 25
                                             }, void 0)
                                         }, movie.id, false, {
                                             fileName: "src/components/MainView/main-view.jsx",
-                                            lineNumber: 170,
+                                            lineNumber: 204,
                                             columnNumber: 23
                                         }, void 0))
                                 }, void 0, false)
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/MainView/main-view.jsx",
-                            lineNumber: 159,
+                            lineNumber: 193,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/MainView/main-view.jsx",
-                    lineNumber: 95,
+                    lineNumber: 129,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/MainView/main-view.jsx",
-                lineNumber: 94,
+                lineNumber: 128,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/MainView/main-view.jsx",
-        lineNumber: 92,
+        lineNumber: 126,
         columnNumber: 5
     }, undefined);
 };
@@ -27553,7 +27588,7 @@ var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
-const MovieCard = ({ movie, onAddToFavorites })=>{
+const MovieCard = ({ movie, onAddToFavorites, onRemoveFavorite })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         className: "h-100",
         children: [
@@ -27563,57 +27598,99 @@ const MovieCard = ({ movie, onAddToFavorites })=>{
                 className: "img-fluid"
             }, void 0, false, {
                 fileName: "src/components/MovieCard/movie-card.jsx",
-                lineNumber: 8,
+                lineNumber: 9,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                className: "h-100",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                        className: "mb-3",
                         children: movie.title
-                    }, void 0, false, {
-                        fileName: "src/components/MovieCard/movie-card.jsx",
-                        lineNumber: 10,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                        children: movie.director.name
                     }, void 0, false, {
                         fileName: "src/components/MovieCard/movie-card.jsx",
                         lineNumber: 11,
                         columnNumber: 9
                     }, undefined),
-                    onAddToFavorites && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                        onClick: ()=>onAddToFavorites(movie.id),
-                        children: "\u2764\uFE0F"
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Subtitle, {
+                        className: "text-muted mb-2",
+                        children: movie.director.name
                     }, void 0, false, {
+                        fileName: "src/components/MovieCard/movie-card.jsx",
+                        lineNumber: 12,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "d-grid gap-2",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                to: `/movies/${encodeURIComponent(movie.id)}`,
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    className: "btn-md",
+                                    children: "Read More"
+                                }, void 0, false, {
+                                    fileName: "src/components/MovieCard/movie-card.jsx",
+                                    lineNumber: 15,
+                                    columnNumber: 13
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/MovieCard/movie-card.jsx",
+                                lineNumber: 14,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                children: [
+                                    " ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                        className: "btn-group",
+                                        lg: 4,
+                                        children: [
+                                            onAddToFavorites && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                className: "btn-md",
+                                                onClick: ()=>onAddToFavorites(movie.id),
+                                                children: "\u2764\uFE0F"
+                                            }, void 0, false, {
+                                                fileName: "src/components/MovieCard/movie-card.jsx",
+                                                lineNumber: 19,
+                                                columnNumber: 15
+                                            }, undefined),
+                                            onRemoveFavorite && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                className: "btn-md",
+                                                onClick: ()=>onRemoveFavorite(movie.id),
+                                                children: "\uD83D\uDC94"
+                                            }, void 0, false, {
+                                                fileName: "src/components/MovieCard/movie-card.jsx",
+                                                lineNumber: 22,
+                                                columnNumber: 15
+                                            }, undefined)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/MovieCard/movie-card.jsx",
+                                        lineNumber: 17,
+                                        columnNumber: 17
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/MovieCard/movie-card.jsx",
+                                lineNumber: 17,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
                         fileName: "src/components/MovieCard/movie-card.jsx",
                         lineNumber: 13,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: `/movies/${encodeURIComponent(movie.id)}`,
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            children: "Read More"
-                        }, void 0, false, {
-                            fileName: "src/components/MovieCard/movie-card.jsx",
-                            lineNumber: 16,
-                            columnNumber: 11
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/MovieCard/movie-card.jsx",
-                        lineNumber: 15,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/MovieCard/movie-card.jsx",
-                lineNumber: 9,
+                lineNumber: 10,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/MovieCard/movie-card.jsx",
-        lineNumber: 7,
+        lineNumber: 8,
         columnNumber: 5
     }, undefined);
 };
@@ -27635,7 +27712,8 @@ MovieCard.propTypes = {
         image: (0, _propTypesDefault.default).string,
         featured: (0, _propTypesDefault.default).bool
     }).isRequired,
-    onAddToFavorites: (0, _propTypesDefault.default).func
+    onAddToFavorites: (0, _propTypesDefault.default).func,
+    onRemoveFavorite: (0, _propTypesDefault.default).func
 };
 var _c;
 $RefreshReg$(_c, "MovieCard");
@@ -41982,104 +42060,156 @@ var _reactRouter = require("react-router");
 var _reactRouterDom = require("react-router-dom");
 var _movieCard = require("../MovieCard/movie-card");
 var _s = $RefreshSig$();
-const MovieView = ({ movies })=>{
+const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
     _s();
     const { movieId } = (0, _reactRouter.useParams)();
     const movie = movies.find((m)=>m.id === movieId);
     const similarMovies = movie ? movies.filter((m)=>m.genre.name === movie.genre.name && m.id !== movie.id) : [];
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Img, {
-                        src: movie.image,
-                        className: "w-100 img-fluid"
-                    }, void 0, false, {
-                        fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 18,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
-                        children: movie.title
-                    }, void 0, false, {
-                        fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 19,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                        children: [
-                            "Director: ",
-                            movie.director.name
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 22,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                        children: [
-                            "Released: ",
-                            movie.year
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 25,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                        children: movie.summary
-                    }, void 0, false, {
-                        fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 28,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: "/",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            children: "Back"
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Img, {
+                            src: movie.image,
+                            className: "w-100 img-fluid"
                         }, void 0, false, {
                             fileName: "src/components/MovieView/movie-view.jsx",
-                            lineNumber: 32,
+                            lineNumber: 19,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                            children: movie.title
+                        }, void 0, false, {
+                            fileName: "src/components/MovieView/movie-view.jsx",
+                            lineNumber: 20,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                            children: [
+                                "Director: ",
+                                movie.director.name,
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                                    fileName: "src/components/MovieView/movie-view.jsx",
+                                    lineNumber: 25,
+                                    columnNumber: 13
+                                }, undefined),
+                                "Released: ",
+                                movie.year
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/MovieView/movie-view.jsx",
+                            lineNumber: 23,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                            className: "",
+                            children: movie.summary
+                        }, void 0, false, {
+                            fileName: "src/components/MovieView/movie-view.jsx",
+                            lineNumber: 28,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "d-grid gap-2 col-2",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                    to: "/",
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                        className: "btn-md w-50",
+                                        children: "Back"
+                                    }, void 0, false, {
+                                        fileName: "src/components/MovieView/movie-view.jsx",
+                                        lineNumber: 33,
+                                        columnNumber: 15
+                                    }, undefined)
+                                }, void 0, false, {
+                                    fileName: "src/components/MovieView/movie-view.jsx",
+                                    lineNumber: 32,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                    className: "btn-group mb-2",
+                                    lg: 4,
+                                    children: [
+                                        onAddToFavorites && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                            className: "btn-md",
+                                            onClick: ()=>onAddToFavorites(movie.id),
+                                            children: "\u2764\uFE0F"
+                                        }, void 0, false, {
+                                            fileName: "src/components/MovieView/movie-view.jsx",
+                                            lineNumber: 37,
+                                            columnNumber: 17
+                                        }, undefined),
+                                        onRemoveFavorite && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                            className: "btn-md",
+                                            onClick: ()=>onRemoveFavorite(movie.id),
+                                            children: "\uD83D\uDC94"
+                                        }, void 0, false, {
+                                            fileName: "src/components/MovieView/movie-view.jsx",
+                                            lineNumber: 40,
+                                            columnNumber: 17
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/MovieView/movie-view.jsx",
+                                    lineNumber: 35,
+                                    columnNumber: 13
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/MovieView/movie-view.jsx",
+                            lineNumber: 31,
                             columnNumber: 11
                         }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 31,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/MovieView/movie-view.jsx",
+                    lineNumber: 18,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
                 fileName: "src/components/MovieView/movie-view.jsx",
                 lineNumber: 17,
                 columnNumber: 7
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
-                fileName: "src/components/MovieView/movie-view.jsx",
-                lineNumber: 35,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: "Similar Movies"
-            }, void 0, false, {
-                fileName: "src/components/MovieView/movie-view.jsx",
-                lineNumber: 36,
-                columnNumber: 7
-            }, undefined),
-            similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                    md: 3,
-                    className: "mb-4",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                        movie: movie
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                        fileName: "src/components/MovieView/movie-view.jsx",
+                        lineNumber: 47,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: "Similar Movies"
                     }, void 0, false, {
                         fileName: "src/components/MovieView/movie-view.jsx",
-                        lineNumber: 39,
-                        columnNumber: 11
-                    }, undefined)
-                }, movie.id, false, {
-                    fileName: "src/components/MovieView/movie-view.jsx",
-                    lineNumber: 38,
-                    columnNumber: 9
-                }, undefined))
+                        lineNumber: 48,
+                        columnNumber: 9
+                    }, undefined),
+                    similarMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                            sm: 12,
+                            md: 6,
+                            lg: 3,
+                            className: "mb-4",
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                                movie: movie
+                            }, void 0, false, {
+                                fileName: "src/components/MovieView/movie-view.jsx",
+                                lineNumber: 51,
+                                columnNumber: 13
+                            }, undefined)
+                        }, movie.id, false, {
+                            fileName: "src/components/MovieView/movie-view.jsx",
+                            lineNumber: 50,
+                            columnNumber: 11
+                        }, undefined))
+                ]
+            }, void 0, true, {
+                fileName: "src/components/MovieView/movie-view.jsx",
+                lineNumber: 46,
+                columnNumber: 7
+            }, undefined)
         ]
     }, void 0, true);
 };
@@ -42494,8 +42624,9 @@ var _reactRouterDom = require("react-router-dom");
 const NavigationBar = ({ user, onLoggedOut })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         expand: "lg",
-        className: "bg-body-tertiary",
+        className: "bg-body-tertiary mb-2",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+            fluid: true,
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
                     as: (0, _reactRouterDom.Link),
@@ -42515,68 +42646,87 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
                     id: "basic-navbar-nav",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
-                        className: "me-auto",
-                        children: [
-                            !user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: "/login",
-                                        children: "Login"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NavigationBar/navigation-bar.jsx",
-                                        lineNumber: 16,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: "/signup",
-                                        children: "Signup"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NavigationBar/navigation-bar.jsx",
-                                        lineNumber: 19,
-                                        columnNumber: 17
-                                    }, undefined)
-                                ]
-                            }, void 0, true),
-                            user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: "/",
-                                        children: "Home"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NavigationBar/navigation-bar.jsx",
-                                        lineNumber: 26,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        onClick: onLoggedOut,
-                                        children: "Logout"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NavigationBar/navigation-bar.jsx",
-                                        lineNumber: 29,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: "/users/:username",
-                                        children: "Profile"
-                                    }, void 0, false, {
-                                        fileName: "src/components/NavigationBar/navigation-bar.jsx",
-                                        lineNumber: 32,
-                                        columnNumber: 17
-                                    }, undefined)
-                                ]
-                            }, void 0, true)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/NavigationBar/navigation-bar.jsx",
-                        lineNumber: 13,
-                        columnNumber: 11
-                    }, undefined)
-                }, void 0, false, {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
+                            className: "me-auto",
+                            children: [
+                                !user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                            as: (0, _reactRouterDom.Link),
+                                            to: "/login",
+                                            children: "Login"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                                            lineNumber: 16,
+                                            columnNumber: 17
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                            as: (0, _reactRouterDom.Link),
+                                            to: "/signup",
+                                            children: "Signup"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                                            lineNumber: 19,
+                                            columnNumber: 17
+                                        }, undefined)
+                                    ]
+                                }, void 0, true),
+                                user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                            as: (0, _reactRouterDom.Link),
+                                            to: "/",
+                                            children: "Home"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                                            lineNumber: 26,
+                                            columnNumber: 17
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                            as: (0, _reactRouterDom.Link),
+                                            to: "/users/:username",
+                                            children: "Profile"
+                                        }, void 0, false, {
+                                            fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                                            lineNumber: 29,
+                                            columnNumber: 17
+                                        }, undefined)
+                                    ]
+                                }, void 0, true)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                            lineNumber: 13,
+                            columnNumber: 11
+                        }, undefined),
+                        user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
+                            className: "ms-auto custom-nav",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                    disabled: true,
+                                    children: user.username
+                                }, void 0, false, {
+                                    fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                                    lineNumber: 37,
+                                    columnNumber: 15
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                    onClick: onLoggedOut,
+                                    children: "Logout \u2348"
+                                }, void 0, false, {
+                                    fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                                    lineNumber: 38,
+                                    columnNumber: 15
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/NavigationBar/navigation-bar.jsx",
+                            lineNumber: 36,
+                            columnNumber: 13
+                        }, undefined)
+                    ]
+                }, void 0, true, {
                     fileName: "src/components/NavigationBar/navigation-bar.jsx",
                     lineNumber: 12,
                     columnNumber: 9
@@ -42614,67 +42764,375 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
+var _react = require("react");
 var _movieCard = require("../MovieCard/movie-card");
-const ProfileView = ({ user, movies, token, setUser, onAddToFavorites })=>{
-    let favoriteMovies = movies.filter((m)=>user.favorites.includes(m._id));
+var _s = $RefreshSig$();
+const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveFavorite })=>{
+    _s();
+    const [username, setUsername] = (0, _react.useState)("");
+    const [name, setName] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    const [confirmPassword, setConfirmPassword] = (0, _react.useState)("");
+    const [email, setEmail] = (0, _react.useState)("");
+    const [birthdate, setBirthdate] = (0, _react.useState)("");
+    const [error, setError] = (0, _react.useState)("");
+    const handleSubmit = async (event)=>{
+        event.preventDefault();
+        const data = {};
+        if (username) data.username = username;
+        if (name) data.name = name;
+        if (password) data.password = password;
+        if (email) data.email = email;
+        if (birthdate) data.birthdate = birthdate;
+        try {
+            const response = await fetch(`https://cartoon-db-8718021d05a1.herokuapp.com/users/${user.username}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            const responseData = await response.json();
+            if (!response.ok) {
+                if (responseData && responseData.error) {
+                    setError(responseData.error);
+                    console.log(responseData);
+                } else setError("Update failed. Please try again.");
+                return;
+            }
+            const updatedUser = {
+                ...user,
+                ...responseData
+            };
+            setUser(updatedUser);
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+            setError(null);
+            alert("Your information was updated successfully.");
+        } catch (error) {
+            console.error("Error updating user: ", error);
+            setError(error.message);
+        }
+    };
+    const favoriteMovies = movies.filter((m)=>user.favorites.includes(m.id));
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                className: "g-3",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                    sm: 12,
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                        className: "w-100 mt-3",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                                className: "m-2",
+                                children: [
+                                    "Hi, ",
+                                    user.username,
+                                    "!"
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 65,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                        children: user.name
+                                    }, void 0, false, {
+                                        fileName: "src/components/ProfileView/profile-view.jsx",
+                                        lineNumber: 67,
+                                        columnNumber: 15
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                        children: user.email
+                                    }, void 0, false, {
+                                        fileName: "src/components/ProfileView/profile-view.jsx",
+                                        lineNumber: 68,
+                                        columnNumber: 15
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 66,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 64,
+                        columnNumber: 11
+                    }, undefined)
+                }, void 0, false, {
+                    fileName: "src/components/ProfileView/profile-view.jsx",
+                    lineNumber: 63,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/ProfileView/profile-view.jsx",
+                lineNumber: 62,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                fileName: "src/components/ProfileView/profile-view.jsx",
+                lineNumber: 73,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
-                        children: user.username
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        children: "Your Favorites:"
                     }, void 0, false, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 10,
+                        lineNumber: 75,
                         columnNumber: 9
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                children: user.name
+                    favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                            sm: 12,
+                            md: 6,
+                            lg: 3,
+                            className: "mb-4",
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                                movie: movie,
+                                onAddtoFavorites: onAddToFavorites,
+                                onRemoveFavorite: onRemoveFavorite
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 12,
+                                lineNumber: 78,
+                                columnNumber: 13
+                            }, undefined)
+                        }, movie.id, false, {
+                            fileName: "src/components/ProfileView/profile-view.jsx",
+                            lineNumber: 77,
+                            columnNumber: 11
+                        }, undefined))
+                ]
+            }, void 0, true, {
+                fileName: "src/components/ProfileView/profile-view.jsx",
+                lineNumber: 74,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                fileName: "src/components/ProfileView/profile-view.jsx",
+                lineNumber: 82,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                onSubmit: handleSubmit,
+                className: "row g-3",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: "Want to Update Your Info?"
+                    }, void 0, false, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 84,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h6", {
+                        className: "text-muted",
+                        children: "(Username and Email are required to make updates, but you can still update them here.)"
+                    }, void 0, false, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 85,
+                        columnNumber: 9
+                    }, undefined),
+                    error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: error
+                    }, void 0, false, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 86,
+                        columnNumber: 19
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formUsername",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                children: "Username (Required): "
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 88,
                                 columnNumber: 11
                             }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                children: "Your Favorites:"
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                type: "text",
+                                value: username,
+                                onChange: (e)=>setUsername(e.target.value),
+                                minLength: 2,
+                                required: true
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 13,
+                                lineNumber: 90,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 11,
+                        lineNumber: 87,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formEmail",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                children: "Email (Required):"
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 99,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                type: "email",
+                                value: email,
+                                onChange: (e)=>setEmail(e.target.value),
+                                pattern: `[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$`,
+                                onInvalid: (e)=>e.target.setCustomValidity("Please enter a valid email address"),
+                                onInput: (e)=>e.target.setCustomValidity(""),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 100,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 98,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formName",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                children: "Name: "
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 111,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                type: "text",
+                                value: name,
+                                onChange: (e)=>setName(e.target.value)
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 113,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 110,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formPassword",
+                        className: "col-md-6",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                children: "Password:"
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 120,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                type: "password",
+                                value: password,
+                                onChange: (e)=>setPassword(e.target.value),
+                                minLength: 8
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 121,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 119,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formConfirmPassword",
+                        className: "col-md-6",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                children: "Confirm Password: "
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 129,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                type: "password",
+                                value: confirmPassword,
+                                onChange: (e)=>setConfirmPassword(e.target.value),
+                                minLength: 8
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 131,
+                                columnNumber: 11
+                            }, undefined),
+                            password !== confirmPassword && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                style: {
+                                    color: "red"
+                                },
+                                children: "Passwords do not match"
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 138,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 128,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                        controlId: "formBirthdate",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                children: "Birthdate:"
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 142,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                type: "date",
+                                value: birthdate,
+                                onChange: (e)=>setBirthdate(e.target.value)
+                            }, void 0, false, {
+                                fileName: "src/components/ProfileView/profile-view.jsx",
+                                lineNumber: 143,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 141,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                        disabled: password !== confirmPassword,
+                        type: "submit",
+                        children: "Submit"
+                    }, void 0, false, {
+                        fileName: "src/components/ProfileView/profile-view.jsx",
+                        lineNumber: 149,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/ProfileView/profile-view.jsx",
-                lineNumber: 9,
+                lineNumber: 83,
                 columnNumber: 7
-            }, undefined),
-            favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Col, {
-                    md: 3,
-                    className: "mb-4",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                        movie: movie,
-                        onAddtoFavorites: onAddToFavorites
-                    }, void 0, false, {
-                        fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 18,
-                        columnNumber: 11
-                    }, undefined)
-                }, movie.id, false, {
-                    fileName: "src/components/ProfileView/profile-view.jsx",
-                    lineNumber: 17,
-                    columnNumber: 9
-                }, undefined))
+            }, undefined)
         ]
     }, void 0, true);
 };
+_s(ProfileView, "Numdo16fgTjeW0HJ48dpLYHLe4I=");
 _c = ProfileView;
 var _c;
 $RefreshReg$(_c, "ProfileView");
@@ -42684,6 +43142,6 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP","../MovieCard/movie-card":"dg3Ls"}]},["kmcEN","3v16m","d8Dch"], "d8Dch", "parcelRequirebe64")
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP","../MovieCard/movie-card":"dg3Ls","react":"21dqq"}]},["kmcEN","3v16m","d8Dch"], "d8Dch", "parcelRequirebe64")
 
 //# sourceMappingURL=index.0d6fcb10.js.map

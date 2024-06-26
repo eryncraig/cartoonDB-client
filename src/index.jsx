@@ -6,7 +6,7 @@ import './index.scss';
 
 const MyCartoonApp = () => {
   return (
-    <Container>
+    <Container className='container-fluid'>
       <MainView />
     </Container>
   );

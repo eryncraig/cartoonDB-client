@@ -2,4 +2,12 @@ $primary: #f0a139;
 $body-bg: #f3efe3;
 
 
+@media (max-width: 991.98px) {
+  .custom-nav {
+    margin-left: 0 !important;
+  }
+}
+
+
+
 @import '~bootstrap/scss/bootstrap.scss';

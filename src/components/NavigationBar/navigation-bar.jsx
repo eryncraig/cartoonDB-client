@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary mb-2">
+    <Navbar expand="lg" className="bg-body-tertiary mb-2" aria-label="navigation-bar">
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
           Cartoon Database
@@ -23,10 +23,10 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
             )}
             {user && (
               <>
-                <Nav.Link as={Link} to="/">
+                <Nav.Link as={Link} to="/" aria-label="Link to Homepage">
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/users/:username">
+                <Nav.Link as={Link} to="/users/:username" aria-label="Link to Profile">
                   Profile
                 </Nav.Link>
               </>
@@ -35,7 +35,7 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
           {user && (
             <Nav className="ms-auto custom-nav">
               <Nav.Link disabled>{user.username}</Nav.Link>
-              <Nav.Link onClick={onLoggedOut}>
+              <Nav.Link onClick={onLoggedOut} aria-label="Click here to logout">
                 Logout ⍈
               </Nav.Link>
             </Nav>

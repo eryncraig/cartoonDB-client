@@ -62,8 +62,8 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
       <Row className="g-3">
         <Col sm={12}>
           <Card className="w-100 mt-3">
-            <Card.Title className="m-2">Hi, {user.username}!</Card.Title>
-            <Card.Body>
+            <Card.Title className="m-2" aria-label="Your username">Hi, {user.username}!</Card.Title>
+            <Card.Body aria-label="Your username and email">
               <Card.Text>{user.name}</Card.Text>
               <Card.Text>{user.email}</Card.Text>
             </Card.Body>
@@ -72,7 +72,7 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
       </Row>
       <hr />
       <Row>
-        <h3>Your Favorites:</h3>
+        <h3 aria-label="Your favorite movies">Your Favorites:</h3>
         {favoriteMovies.map((movie) => (
           <Col sm={12} md={6} lg={3} className="mb-4" key={movie.id}>
             <MovieCard movie={movie} onAddtoFavorites={onAddToFavorites} onRemoveFavorite={onRemoveFavorite} />
@@ -80,7 +80,7 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
         ))}
       </Row>
       <hr />
-      <Form onSubmit={handleSubmit} className="row g-3">
+      <Form onSubmit={handleSubmit} className="row g-3" aria-label="A form to change your information">
         <h2>Want to Update Your Info?</h2>
         <h6 className="text-muted">(Username and Email are required to make updates, but you can still update them here.)</h6>
         {error && <div>{error}</div>}
@@ -93,6 +93,8 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
             onChange={(e) => setUsername(e.target.value)}
             minLength={2}
             required
+            aria-required="true"
+            aria-label="Username"
           />
         </Form.Group>
         <Form.Group controlId="formEmail">
@@ -105,6 +107,8 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
             onInvalid={(e) => e.target.setCustomValidity('Please enter a valid email address')}
             onInput={(e) => e.target.setCustomValidity('')}
             required
+            aria-required="true"
+            aria-label="Email"
           />
         </Form.Group>
         <Form.Group controlId="formName">
@@ -114,6 +118,7 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            aria-label="Your name"
           />
         </Form.Group>
         <Form.Group controlId="formPassword" className="col-md-6">
@@ -123,6 +128,7 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             minLength={8}
+            aria-label="Enter a new password, then confirm again below"
           />
         </Form.Group>
         <Form.Group controlId="formConfirmPassword" className="col-md-6">
@@ -133,6 +139,7 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             minLength={8}
+            aria-label="Confirm your new password"
           />
           {password !== confirmPassword && (
             <span style={{ color: 'red' }}>Passwords do not match</span>
@@ -144,9 +151,10 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
             type="date"
             value={birthdate}
             onChange={(e) => setBirthdate(e.target.value)}
+            aria-label="Your date of birth"
           />
         </Form.Group>
-        <Button disabled={password !== confirmPassword} type="submit">Submit</Button>
+        <Button disabled={password !== confirmPassword} type="submit" aria-label="Button to submit updates">Submit</Button>
       </Form>
     </>
   )

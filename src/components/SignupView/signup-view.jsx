@@ -53,9 +53,13 @@ export const SignupView = () => {
           Username: </Form.Label>
         <Form.Control
           type="text"
+          placeholder="ZorroTwoBlade"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          aria-required="true"
+          aria-label="Enter a username"
+          role="textbox"
           minLength={2}
         />
       </Form.Group>
@@ -66,6 +70,8 @@ export const SignupView = () => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder="Zorro"
+          aria-label="Enter your name. This is optional"
         />
       </Form.Group>
       <Form.Group controlId="formPassword">
@@ -75,6 +81,9 @@ export const SignupView = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          aria-required="true"
+          aria-label="Choose a password"
+          placeholder="password"
           minLength={8}
         />
       </Form.Group>
@@ -86,6 +95,9 @@ export const SignupView = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
+          aria-required="true"
+          aria-label="Confirm your password"
+          placeholder="confirm password"
           minLength={8}
         />
         {password !== confirmPassword && (
@@ -102,6 +114,9 @@ export const SignupView = () => {
           onInvalid={(e) => e.target.setCustomValidity('Please enter a valid email address')}
           onInput={(e) => e.target.setCustomValidity('')}
           required
+          aria-required="true"
+          aria-label="Enter your email here"
+          placeholder="zorro@onepiece.org"
         />
       </Form.Group>
       <Form.Group controlId="formBirthdate">
@@ -111,9 +126,11 @@ export const SignupView = () => {
           value={birthdate}
           onChange={(e) => setBirthdate(e.target.value)}
           required
+          aria-required="true"
+          aria-label="Your birthdate"
         />
       </Form.Group>
-      <Button type="submit">Submit</Button>
+      <Button type="submit" role="button" aria-label="Submit button">Submit</Button>
     </Form>
   )
 

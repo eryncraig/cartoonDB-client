@@ -16,28 +16,28 @@ export const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite }) => {
     <>
       <Row>
         <Card>
-          <Card.Img src={movie.image} className="w-100 img-fluid" />
+          <Card.Img src={movie.image} className="w-100 img-fluid" aria-label="Image of movie poster" alt={`Poster for ${movie.title}.`} />
           <Card.Title>
             {movie.title}
           </Card.Title>
-          <Card.Text>
+          <Card.Text aria-label="Director name and movie release year.">
             Director: {movie.director.name}
             <br />
             Released: {movie.year}
           </Card.Text>
-          <Card.Text className="">
+          <Card.Text className="" aria-label={`Summary for ${movie.title}`} >
             {movie.summary}
           </Card.Text>
           <div className="d-grid gap-2 col-2">
-            <Link to={'/'}>
-              <Button className="btn-md w-50">Back</Button>
+            <Link to={'/'} aria-label="Back button to homepage">
+              <Button className="btn-md">Back</Button>
             </Link>
             <Col className="btn-group mb-2" lg={4}>
               {onAddToFavorites && (
-                <Button className="btn-md" onClick={() => onAddToFavorites(movie.id)}>❤️</Button>)
+                <Button className="btn-md" onClick={() => onAddToFavorites(movie.id)} aria-label="Add to favorites button">❤️</Button>)
               }
               {onRemoveFavorite && (
-                <Button className="btn-md" onClick={() => onRemoveFavorite(movie.id)}>💔</Button>)
+                <Button className="btn-md" onClick={() => onRemoveFavorite(movie.id)} aria-label="Remove from favorites button">💔</Button>)
               }
             </Col>
           </div>
@@ -48,7 +48,7 @@ export const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite }) => {
         <h2>Similar Movies</h2>
         {similarMovies.map((movie) => (
           <Col sm={12} md={6} lg={3} className="mb-4" key={movie.id}>
-            <MovieCard movie={movie} />
+            <MovieCard movie={movie} aria-label={`Thumbnail for ${movie.title}`} />
           </Col>
         ))}
 

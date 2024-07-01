@@ -42072,7 +42072,9 @@ const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Img, {
                             src: movie.image,
-                            className: "w-100 img-fluid"
+                            className: "w-100 img-fluid",
+                            "aria-label": "Image of movie poster",
+                            alt: `Poster for ${movie.title}.`
                         }, void 0, false, {
                             fileName: "src/components/MovieView/movie-view.jsx",
                             lineNumber: 19,
@@ -42086,6 +42088,7 @@ const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                            "aria-label": "Director name and movie release year.",
                             children: [
                                 "Director: ",
                                 movie.director.name,
@@ -42104,6 +42107,7 @@ const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                             className: "",
+                            "aria-label": `Summary for ${movie.title}`,
                             children: movie.summary
                         }, void 0, false, {
                             fileName: "src/components/MovieView/movie-view.jsx",
@@ -42115,8 +42119,9 @@ const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
                             children: [
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                                     to: "/",
+                                    "aria-label": "Back button to homepage",
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        className: "btn-md w-50",
+                                        className: "btn-md",
                                         children: "Back"
                                     }, void 0, false, {
                                         fileName: "src/components/MovieView/movie-view.jsx",
@@ -42135,6 +42140,7 @@ const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
                                         onAddToFavorites && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                             className: "btn-md",
                                             onClick: ()=>onAddToFavorites(movie.id),
+                                            "aria-label": "Add to favorites button",
                                             children: "\u2764\uFE0F"
                                         }, void 0, false, {
                                             fileName: "src/components/MovieView/movie-view.jsx",
@@ -42144,6 +42150,7 @@ const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
                                         onRemoveFavorite && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                             className: "btn-md",
                                             onClick: ()=>onRemoveFavorite(movie.id),
+                                            "aria-label": "Remove from favorites button",
                                             children: "\uD83D\uDC94"
                                         }, void 0, false, {
                                             fileName: "src/components/MovieView/movie-view.jsx",
@@ -42193,7 +42200,8 @@ const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite })=>{
                             lg: 3,
                             className: "mb-4",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                movie: movie
+                                movie: movie,
+                                "aria-label": `Thumbnail for ${movie.title}`
                             }, void 0, false, {
                                 fileName: "src/components/MovieView/movie-view.jsx",
                                 lineNumber: 51,
@@ -42289,7 +42297,9 @@ const LoginView = ({ onLoggedIn })=>{
                         type: "text",
                         value: username,
                         onChange: (e)=>setUsername(e.target.value),
-                        required: true
+                        required: true,
+                        "aria-required": "true",
+                        "aria-label": "Enter your username"
                     }, void 0, false, {
                         fileName: "src/components/LoginView/login-view.jsx",
                         lineNumber: 49,
@@ -42308,32 +42318,35 @@ const LoginView = ({ onLoggedIn })=>{
                         children: "Password: "
                     }, void 0, false, {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 57,
+                        lineNumber: 59,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                         type: "password",
                         value: password,
                         onChange: (e)=>setPassword(e.target.value),
-                        required: true
+                        required: true,
+                        "aria-required": "true",
+                        "aria-label": "Enter your password"
                     }, void 0, false, {
                         fileName: "src/components/LoginView/login-view.jsx",
-                        lineNumber: 59,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/LoginView/login-view.jsx",
-                lineNumber: 56,
+                lineNumber: 58,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                 variant: "primary",
                 type: "submit",
+                "aria-label": "Button to log in",
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/LoginView/login-view.jsx",
-                lineNumber: 66,
+                lineNumber: 70,
                 columnNumber: 7
             }, undefined)
         ]
@@ -42424,9 +42437,13 @@ const SignupView = ()=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                         type: "text",
+                        placeholder: "ZorroTwoBlade",
                         value: username,
                         onChange: (e)=>setUsername(e.target.value),
                         required: true,
+                        "aria-required": "true",
+                        "aria-label": "Enter a username",
+                        role: "textbox",
                         minLength: 2
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
@@ -42446,22 +42463,24 @@ const SignupView = ()=>{
                         children: "Name (optional): "
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 63,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                         type: "text",
                         value: name,
-                        onChange: (e)=>setName(e.target.value)
+                        onChange: (e)=>setName(e.target.value),
+                        placeholder: "Zorro",
+                        "aria-label": "Enter your name. This is optional"
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 65,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/SignupView/signup-view.jsx",
-                lineNumber: 62,
+                lineNumber: 66,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42471,7 +42490,7 @@ const SignupView = ()=>{
                         children: "Password:"
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 72,
+                        lineNumber: 78,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -42479,16 +42498,19 @@ const SignupView = ()=>{
                         value: password,
                         onChange: (e)=>setPassword(e.target.value),
                         required: true,
+                        "aria-required": "true",
+                        "aria-label": "Choose a password",
+                        placeholder: "password",
                         minLength: 8
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 73,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/SignupView/signup-view.jsx",
-                lineNumber: 71,
+                lineNumber: 77,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42498,7 +42520,7 @@ const SignupView = ()=>{
                         children: "Confirm Password: "
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 82,
+                        lineNumber: 91,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -42506,10 +42528,13 @@ const SignupView = ()=>{
                         value: confirmPassword,
                         onChange: (e)=>setConfirmPassword(e.target.value),
                         required: true,
+                        "aria-required": "true",
+                        "aria-label": "Confirm your password",
+                        placeholder: "confirm password",
                         minLength: 8
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 84,
+                        lineNumber: 93,
                         columnNumber: 9
                     }, undefined),
                     password !== confirmPassword && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -42519,13 +42544,13 @@ const SignupView = ()=>{
                         children: "Passwords do not match"
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 92,
+                        lineNumber: 104,
                         columnNumber: 11
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/SignupView/signup-view.jsx",
-                lineNumber: 81,
+                lineNumber: 90,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42535,7 +42560,7 @@ const SignupView = ()=>{
                         children: "Email:"
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 96,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -42545,33 +42570,10 @@ const SignupView = ()=>{
                         pattern: `[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$`,
                         onInvalid: (e)=>e.target.setCustomValidity("Please enter a valid email address"),
                         onInput: (e)=>e.target.setCustomValidity(""),
-                        required: true
-                    }, void 0, false, {
-                        fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 97,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/SignupView/signup-view.jsx",
-                lineNumber: 95,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                controlId: "formBirthdate",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                        children: "Birthdate:"
-                    }, void 0, false, {
-                        fileName: "src/components/SignupView/signup-view.jsx",
-                        lineNumber: 108,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                        type: "date",
-                        value: birthdate,
-                        onChange: (e)=>setBirthdate(e.target.value),
-                        required: true
+                        required: true,
+                        "aria-required": "true",
+                        "aria-label": "Enter your email here",
+                        placeholder: "zorro@onepiece.org"
                     }, void 0, false, {
                         fileName: "src/components/SignupView/signup-view.jsx",
                         lineNumber: 109,
@@ -42583,12 +42585,42 @@ const SignupView = ()=>{
                 lineNumber: 107,
                 columnNumber: 7
             }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                controlId: "formBirthdate",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                        children: "Birthdate:"
+                    }, void 0, false, {
+                        fileName: "src/components/SignupView/signup-view.jsx",
+                        lineNumber: 123,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                        type: "date",
+                        value: birthdate,
+                        onChange: (e)=>setBirthdate(e.target.value),
+                        required: true,
+                        "aria-required": "true",
+                        "aria-label": "Your birthdate"
+                    }, void 0, false, {
+                        fileName: "src/components/SignupView/signup-view.jsx",
+                        lineNumber: 124,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/SignupView/signup-view.jsx",
+                lineNumber: 122,
+                columnNumber: 7
+            }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                 type: "submit",
+                role: "button",
+                "aria-label": "Submit button",
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/SignupView/signup-view.jsx",
-                lineNumber: 116,
+                lineNumber: 133,
                 columnNumber: 7
             }, undefined)
         ]
@@ -42625,6 +42657,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         expand: "lg",
         className: "bg-body-tertiary mb-2",
+        "aria-label": "navigation-bar",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
             fluid: true,
             children: [
@@ -42677,6 +42710,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                             as: (0, _reactRouterDom.Link),
                                             to: "/",
+                                            "aria-label": "Link to Homepage",
                                             children: "Home"
                                         }, void 0, false, {
                                             fileName: "src/components/NavigationBar/navigation-bar.jsx",
@@ -42686,6 +42720,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                             as: (0, _reactRouterDom.Link),
                                             to: "/users/:username",
+                                            "aria-label": "Link to Profile",
                                             children: "Profile"
                                         }, void 0, false, {
                                             fileName: "src/components/NavigationBar/navigation-bar.jsx",
@@ -42713,6 +42748,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                     onClick: onLoggedOut,
+                                    "aria-label": "Click here to logout",
                                     children: "Logout \u2348"
                                 }, void 0, false, {
                                     fileName: "src/components/NavigationBar/navigation-bar.jsx",
@@ -42826,6 +42862,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
                                 className: "m-2",
+                                "aria-label": "Your username",
                                 children: [
                                     "Hi, ",
                                     user.username,
@@ -42837,6 +42874,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                                "aria-label": "Your username and email",
                                 children: [
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                                         children: user.name
@@ -42882,6 +42920,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        "aria-label": "Your favorite movies",
                         children: "Your Favorites:"
                     }, void 0, false, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
@@ -42921,6 +42960,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
                 onSubmit: handleSubmit,
                 className: "row g-3",
+                "aria-label": "A form to change your information",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                         children: "Want to Update Your Info?"
@@ -42959,7 +42999,9 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 value: username,
                                 onChange: (e)=>setUsername(e.target.value),
                                 minLength: 2,
-                                required: true
+                                required: true,
+                                "aria-required": "true",
+                                "aria-label": "Username"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
                                 lineNumber: 90,
@@ -42978,7 +43020,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Email (Required):"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 99,
+                                lineNumber: 101,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -42988,16 +43030,18 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 pattern: `[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$`,
                                 onInvalid: (e)=>e.target.setCustomValidity("Please enter a valid email address"),
                                 onInput: (e)=>e.target.setCustomValidity(""),
-                                required: true
+                                required: true,
+                                "aria-required": "true",
+                                "aria-label": "Email"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 100,
+                                lineNumber: 102,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 98,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43007,22 +43051,23 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Name: "
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 111,
+                                lineNumber: 115,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                                 type: "text",
                                 value: name,
-                                onChange: (e)=>setName(e.target.value)
+                                onChange: (e)=>setName(e.target.value),
+                                "aria-label": "Your name"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 113,
+                                lineNumber: 117,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 110,
+                        lineNumber: 114,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43033,23 +43078,24 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 120,
+                                lineNumber: 125,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                                 type: "password",
                                 value: password,
                                 onChange: (e)=>setPassword(e.target.value),
-                                minLength: 8
+                                minLength: 8,
+                                "aria-label": "Enter a new password, then confirm again below"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 121,
+                                lineNumber: 126,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 119,
+                        lineNumber: 124,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43060,17 +43106,18 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Confirm Password: "
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 129,
+                                lineNumber: 135,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                                 type: "password",
                                 value: confirmPassword,
                                 onChange: (e)=>setConfirmPassword(e.target.value),
-                                minLength: 8
+                                minLength: 8,
+                                "aria-label": "Confirm your new password"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 131,
+                                lineNumber: 137,
                                 columnNumber: 11
                             }, undefined),
                             password !== confirmPassword && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -43080,13 +43127,13 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Passwords do not match"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 138,
+                                lineNumber: 145,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 128,
+                        lineNumber: 134,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -43096,31 +43143,33 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Birthdate:"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 142,
+                                lineNumber: 149,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                                 type: "date",
                                 value: birthdate,
-                                onChange: (e)=>setBirthdate(e.target.value)
+                                onChange: (e)=>setBirthdate(e.target.value),
+                                "aria-label": "Your date of birth"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 143,
+                                lineNumber: 150,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 141,
+                        lineNumber: 148,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                         disabled: password !== confirmPassword,
                         type: "submit",
+                        "aria-label": "Button to submit updates",
                         children: "Submit"
                     }, void 0, false, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 149,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, undefined)
                 ]

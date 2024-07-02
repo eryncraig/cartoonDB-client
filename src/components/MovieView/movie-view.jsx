@@ -2,8 +2,10 @@ import { Button, Card, Col, Row } from "react-bootstrap"
 import { useParams } from "react-router"
 import { Link } from "react-router-dom";
 import { MovieCard } from "../MovieCard/movie-card";
+import { useSelector } from "react-redux";
 
-export const MovieView = ({ movies, onAddToFavorites, onRemoveFavorite }) => {
+export const MovieView = ({ onAddToFavorites, onRemoveFavorite }) => {
+  const movies = useSelector((state) => state.movies)
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);

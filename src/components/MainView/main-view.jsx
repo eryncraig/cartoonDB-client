@@ -4,18 +4,25 @@ import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../LoginView/login-view";
 import { SignupView } from "../SignupView/signup-view";
 import { ProfileView } from "../ProfileView/profile-view";
+import { NavigationBar } from "../NavigationBar/navigation-bar";
+import { setMovies } from "../../redux/reducers/movies";
+import { useSelector, useDispatch } from "react-redux";
 import { Col, Row, Button } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
-import { NavigationBar } from "../NavigationBar/navigation-bar";
+
 
 export const MainView = () => {
 
+  // Store the user and auth in the local storage to persist the login
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
 
+  // hooks and redux to access the user and movie states
   const [user, setUser] = useState(storedUser ? storedUser : null)
-  const [movies, setMovies] = useState([]);
+  const movies = useSelector((state) => state.movies.movies);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token) {
@@ -48,7 +55,7 @@ export const MainView = () => {
             featured: movie.featured
           };
         });
-        setMovies(moviesFromApi);
+        dispatch(setMovies(moviesFromApi));
       })
   }, [token]);
 
@@ -182,7 +189,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     <Col className="col-md-8 col-sm-6">
-                      <MovieView movies={movies} onAddToFavorites={addToFavorites} onRemoveFavorite={removeFromFavorites} />
+                      <MovieView onAddToFavorites={addToFavorites} onRemoveFavorite={removeFromFavorites} />
                     </Col>
                   </>
                 )}

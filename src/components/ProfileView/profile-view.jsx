@@ -1,5 +1,4 @@
 import { Card, Col, Row, Form, Button, InputGroup } from "react-bootstrap";
-import { BiEye, BiEyeSlash } from "react-icons/bi"
 import { useState, useEffect } from "react";
 import { MovieCard } from "../MovieCard/movie-card";
 
@@ -202,7 +201,7 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
               aria-label="Enter a new password, then confirm again below"
             />
             <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? "-" : "+"}
+              {showPassword ? <i className="bi bi-eye-slash" /> : <i className="bi bi-eye-fill" />}
             </Button>
           </InputGroup>
         </Form.Group>
@@ -219,7 +218,8 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
               aria-label="Confirm your new password"
             />
             <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? "-" : "+"}
+              {/* Fix the below so that the eye icons show up */}
+              {showPassword ? <img src="../img/eye-slash.svg" /> : <img src="../img/eye.svg" />}
             </Button>
           </InputGroup>
           {formData.password !== formData.confirmPassword && (

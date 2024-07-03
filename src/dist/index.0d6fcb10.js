@@ -2995,7 +2995,7 @@ $RefreshReg$(_c, "MyCartoonApp");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/MainView/main-view":"jovED","react-bootstrap":"3AD9A","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP","react-redux":"62sf7","./redux/store":"bDp2K"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/MainView/main-view":"jovED","react-bootstrap":"3AD9A","react-redux":"62sf7","./redux/store":"bDp2K","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27591,7 +27591,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../MovieCard/movie-card":"dg3Ls","../MovieView/movie-view":"9Uua1","../LoginView/login-view":"6cJc6","../SignupView/signup-view":"bpvce","../ProfileView/profile-view":"kSwFP","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","../NavigationBar/navigation-bar":"3fCaw","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP","../../redux/reducers/movies":"l0qwl","react-redux":"62sf7"}],"dg3Ls":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../MovieCard/movie-card":"dg3Ls","../MovieView/movie-view":"9Uua1","../LoginView/login-view":"6cJc6","../SignupView/signup-view":"bpvce","../ProfileView/profile-view":"kSwFP","../NavigationBar/navigation-bar":"3fCaw","../../redux/reducers/movies":"l0qwl","react-redux":"62sf7","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP"}],"dg3Ls":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2506 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -42338,7 +42338,7 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router":"dbWyW","react-router-dom":"9xmpe","../MovieCard/movie-card":"dg3Ls","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP","react-redux":"62sf7"}],"62sf7":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router":"dbWyW","react-router-dom":"9xmpe","../MovieCard/movie-card":"dg3Ls","react-redux":"62sf7","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5ttRP"}],"62sf7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Provider", ()=>Provider_default);
@@ -44185,7 +44185,19 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                         variant: "outline-secondary",
                                         onClick: ()=>setShowPassword(!showPassword),
-                                        children: showPassword ? "-" : "+"
+                                        children: showPassword ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("i", {
+                                            className: "bi bi-eye-slash"
+                                        }, void 0, false, {
+                                            fileName: "src/components/ProfileView/profile-view.jsx",
+                                            lineNumber: 204,
+                                            columnNumber: 31
+                                        }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("i", {
+                                            className: "bi bi-eye-fill"
+                                        }, void 0, false, {
+                                            fileName: "src/components/ProfileView/profile-view.jsx",
+                                            lineNumber: 204,
+                                            columnNumber: 67
+                                        }, undefined)
                                     }, void 0, false, {
                                         fileName: "src/components/ProfileView/profile-view.jsx",
                                         lineNumber: 203,
@@ -44231,7 +44243,19 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                         variant: "outline-secondary",
                                         onClick: ()=>setShowPassword(!showPassword),
-                                        children: showPassword ? "-" : "+"
+                                        children: showPassword ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                            src: "../img/eye-slash.svg"
+                                        }, void 0, false, {
+                                            fileName: "src/components/ProfileView/profile-view.jsx",
+                                            lineNumber: 222,
+                                            columnNumber: 31
+                                        }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                            src: "../img/eye.svg"
+                                        }, void 0, false, {
+                                            fileName: "src/components/ProfileView/profile-view.jsx",
+                                            lineNumber: 222,
+                                            columnNumber: 68
+                                        }, undefined)
                                     }, void 0, false, {
                                         fileName: "src/components/ProfileView/profile-view.jsx",
                                         lineNumber: 220,
@@ -44250,7 +44274,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Passwords do not match"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 225,
+                                lineNumber: 226,
                                 columnNumber: 13
                             }, undefined)
                         ]
@@ -44266,7 +44290,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 children: "Birthdate:"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 229,
+                                lineNumber: 230,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -44277,13 +44301,13 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                                 "aria-label": "Your date of birth"
                             }, void 0, false, {
                                 fileName: "src/components/ProfileView/profile-view.jsx",
-                                lineNumber: 230,
+                                lineNumber: 231,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 228,
+                        lineNumber: 229,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -44293,7 +44317,7 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                         children: "Submit"
                     }, void 0, false, {
                         fileName: "src/components/ProfileView/profile-view.jsx",
-                        lineNumber: 238,
+                        lineNumber: 239,
                         columnNumber: 9
                     }, undefined)
                 ]
@@ -48460,7 +48484,7 @@ function createThunkMiddleware(extraArgument) {
 var thunk = createThunkMiddleware();
 var withExtraArgument = createThunkMiddleware;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX"}],"lJZlQ":[function() {},{}],"bDp2K":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX"}],"bDp2K":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "store", ()=>store);
@@ -48473,6 +48497,6 @@ const store = (0, _toolkit.configureStore)({
     }
 });
 
-},{"@reduxjs/toolkit":"fuua8","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX","./reducers/movies":"l0qwl"}]},["kmcEN","3v16m","d8Dch"], "d8Dch", "parcelRequirebe64")
+},{"@reduxjs/toolkit":"fuua8","./reducers/movies":"l0qwl","@parcel/transformer-js/src/esmodule-helpers.js":"i8PzX"}],"lJZlQ":[function() {},{}]},["kmcEN","3v16m","d8Dch"], "d8Dch", "parcelRequirebe64")
 
 //# sourceMappingURL=index.0d6fcb10.js.map

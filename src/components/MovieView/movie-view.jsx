@@ -5,11 +5,15 @@ import { MovieCard } from "../MovieCard/movie-card";
 import { useSelector } from "react-redux";
 
 export const MovieView = ({ onAddToFavorites, onRemoveFavorite }) => {
-  const movies = useSelector((state) => state.movies)
+  // finds the movieId variable using the uri
   const { movieId } = useParams();
 
-  const movie = movies.find((m) => m.id === movieId);
+  // uses state store from redux to pass movie state (vs props)
+  const movie = useSelector((state) => state.movies.movies.find((movie) => movie.id === movieId));
+  const movies = useSelector((state) => state.movies.movies); // Accessing movies array
 
+
+  //makes a list of similar movies in the same view for recommendation
   const similarMovies = movie ? movies.filter(
     (m) => m.genre.name === movie.genre.name && m.id !== movie.id) : [];
 

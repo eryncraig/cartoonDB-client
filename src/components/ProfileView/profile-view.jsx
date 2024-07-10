@@ -146,7 +146,7 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
       <Row>
         <h3 aria-label="Your favorite movies">Your Favorites:</h3>
         {favoriteMovies.map((movie) => (
-          <Col sm={12} md={6} lg={3} className="mb-4" key={movie.id}>
+          <Col className="mb-4" key={movie.id}>
             <MovieCard movie={movie} onAddtoFavorites={onAddToFavorites} onRemoveFavorite={onRemoveFavorite} />
           </Col>
         ))}

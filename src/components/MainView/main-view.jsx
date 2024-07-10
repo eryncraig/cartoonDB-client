@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MovieCard } from "../MovieCard/movie-card";
+import { MovieList } from "../MovieList/movie-list";
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../LoginView/login-view";
 import { SignupView } from "../SignupView/signup-view";
@@ -7,8 +7,8 @@ import { ProfileView } from "../ProfileView/profile-view";
 import { NavigationBar } from "../NavigationBar/navigation-bar";
 import { setMovies } from "../../redux/reducers/movies";
 import { useSelector, useDispatch } from "react-redux";
-import { Col, Row, Button } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 
 export const MainView = () => {
@@ -19,9 +19,9 @@ export const MainView = () => {
 
   // hooks and redux to access the user and movie states
   const [user, setUser] = useState(storedUser ? storedUser : null)
-  const movies = useSelector((state) => state.movies.movies);
   const [token, setToken] = useState(storedToken ? storedToken : null);
 
+  const movies = useSelector((state) => state.movies.movies);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const MainView = () => {
         });
         dispatch(setMovies(moviesFromApi));
       })
-  }, [token]);
+  }, [token, dispatch]);
 
 
   const handleLoggedIn = (user, token) => {
@@ -144,7 +144,7 @@ export const MainView = () => {
                   <Col md={5}>
                     < SignupView />
                   </Col>
-                )}{" "}
+                )}
               </>
             } />
           <Route
@@ -200,22 +200,17 @@ export const MainView = () => {
           <Route
             path="/"
             element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col sm={12} md={6} lg={3} className="mb-5" key={movie.id} >
-                        <MovieCard movie={movie} onAddToFavorites={addToFavorites} onRemoveFavorite={removeFromFavorites} />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </>
+
+              !user ? (
+                <Navigate to="/login" replace />
+              ) : movies.length === 0 ? (
+                <Col>The list is empty!</Col>
+              ) : (
+                <MovieList movies={movies} onAddToFavorites={addToFavorites} onRemoveFavorite={removeFromFavorites} />
+              )
+
             }
+
           />
         </Routes>
       </Row>

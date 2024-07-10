@@ -1,5 +1,16 @@
 $primary: #f0a139;
 $body-bg: #f3efe3;
+$secondary: #000000;
+
+.image-container {
+  height: 300px;
+  overflow: hidden;
+}
+
+.movie-image {
+  height: 100%;
+  object-fit: cover;
+}
 
 
 @media (max-width: 991.98px) {

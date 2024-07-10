@@ -42085,7 +42085,7 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 const MovieCard = ({ movie, onAddToFavorites, onRemoveFavorite })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-        className: "h-100 bg-secondary text-light",
+        className: "bg-secondary text-light",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "image-container",
@@ -44069,6 +44069,10 @@ const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, onRemoveF
                     }, undefined),
                     favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                             className: "mb-4",
+                            xs: 12,
+                            sm: 8,
+                            md: 6,
+                            lg: 6,
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                 movie: movie,
                                 onAddtoFavorites: onAddToFavorites,
@@ -49369,7 +49373,10 @@ const MovieList = ({ onAddToFavorites, onRemoveFavorite })=>{
                     columnNumber: 11
                 }, undefined) : filteredMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         className: "mb-4",
-                        md: 3,
+                        xs: 12,
+                        sm: 6,
+                        md: 6,
+                        lg: 4,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie,
                             onAddToFavorites: onAddToFavorites,

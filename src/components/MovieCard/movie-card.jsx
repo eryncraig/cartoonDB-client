@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const MovieCard = ({ movie, onAddToFavorites, onRemoveFavorite }) => {
   return (
 
-    <Card className="h-100 bg-secondary text-light">
+    <Card className="bg-secondary text-light">
       <div className="image-container">
         <Card.Img variant="top" src={movie.image} className="img-fluid movie-image" />
       </div>

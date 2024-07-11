@@ -53,7 +53,7 @@ export const SignupView = () => {
           Username: </Form.Label>
         <Form.Control
           type="text"
-          placeholder="ZorroTwoBlade"
+          placeholder="ex: ZorroTwoBlade"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -70,7 +70,7 @@ export const SignupView = () => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Zorro"
+          placeholder="ex: Zorro"
           aria-label="Enter your name. This is optional"
         />
       </Form.Group>
@@ -83,7 +83,7 @@ export const SignupView = () => {
           required
           aria-required="true"
           aria-label="Choose a password"
-          placeholder="password"
+          placeholder="Password"
           minLength={8}
         />
       </Form.Group>
@@ -97,7 +97,7 @@ export const SignupView = () => {
           required
           aria-required="true"
           aria-label="Confirm your password"
-          placeholder="confirm password"
+          placeholder="Confirm password"
           minLength={8}
         />
         {password !== confirmPassword && (
@@ -116,7 +116,7 @@ export const SignupView = () => {
           required
           aria-required="true"
           aria-label="Enter your email here"
-          placeholder="zorro@onepiece.org"
+          placeholder="ex: zorro@onepiece.org"
         />
       </Form.Group>
       <Form.Group controlId="formBirthdate">

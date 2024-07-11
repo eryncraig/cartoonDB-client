@@ -1,5 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -10,8 +13,15 @@ export const SignupView = () => {
   const [birthdate, setBirthdate] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!username || !password || !confirmPassword || !email) {
+      setError('All fields are required.');
+      return;
+    }
 
     const data = {
       username,
@@ -28,18 +38,36 @@ export const SignupView = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        alert("Signup successful! Welcome to CartoonDB.");
-      } else {
-        response.json().then((data) => {
-          if (data.error) {
-            setError(data.error);
-          } else {
-            setError("Signup failed.")
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.json().then((data) => {
+              let errorMessage;
+              switch (response.status) {
+                case 400:
+                  errorMessage = data.message || "Invalid input. Please check your details.";
+                  break;
+                case 409:
+                  errorMessage = "Username or email already exists.";
+                  break;
+                default:
+                  errorMessage = "Client error. Please check your input.";
+              }
+              throw new Error(errorMessage);
+            });
           }
-        });
-      }
+          return response.json()
+        })
+        .then((data) => {
+          toast.success('Registration successful! Redirecting to login...');
+          setTimeout(() => {
+            navigate('/login');
+          }, 2000)
+        }).catch((e) => {
+          console.error("Signup error: ", e);
+          toast.error("Something went wrong. " + e.message);
+          setError(e.message);
+        })
     } catch (error) {
       setError(error.message);
     }
@@ -47,7 +75,9 @@ export const SignupView = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <h2>Sign Up:</h2>
       {error && <div>{error}</div>}
+      <ToastContainer autoClose={3000} theme="colored" />
       <Form.Group controlId="formUsername">
         <Form.Label>
           Username: </Form.Label>
@@ -130,7 +160,7 @@ export const SignupView = () => {
           aria-label="Your birthdate"
         />
       </Form.Group>
-      <Button className="m-2" type="submit" role="button" aria-label="Submit button">Submit</Button>
+      <Button className="m-2" type="submit" role="button" aria-label="Submit button">Register</Button>
     </Form>
   )
 

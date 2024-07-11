@@ -41,6 +41,48 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
     }));
   };
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+
+    if (!user) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://cartoon-db-8718021d05a1.herokuapp.com/users/${user.username}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        const responseData = await response.json();
+        const errorMsg = responseData.errors ? responseData.errors.map(err => `${err.msg} (Field: ${err.path})`).join(', ') : "Deletion failed. Please try again.";
+        setError(`Deletion failed: ${errorMsg}`);
+        toast.error(`Deletion failed: ${errorMsg}`);
+        return;
+      }
+
+      toast.success("Your information was deleted successfully. Taking you to the login page shortly!");
+
+      setTimeout(() => {
+        setUser(null);
+        localStorage.removeItem('user');
+        setError(null);
+        window.location.href = "/login"; // Setting delay so confirmation shows before redirect to the login page
+      }, 3000);
+
+
+    } catch (error) {
+      console.error('Error deleting user: ', error);
+      setError(`Error deleting user: ${error.message}`);
+      toast.error(`Error deleting user: ${error.message}`);
+    }
+
+  }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -145,15 +187,20 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
       <hr />
       <Row>
         <h3 aria-label="Your favorite movies">Your Favorites:</h3>
-        {favoriteMovies.map((movie) => (
+        {favoriteMovies.length === 0 ? (
+          <Col className="mb-4">
+            <p>You haven't added any favorite movies yet.</p>
+          </Col>
+        ) : (favoriteMovies.map((movie) => (
           <Col className="mb-4" key={movie.id} xs={12} sm={8} md={6} lg={6}>
             <MovieCard movie={movie} onAddtoFavorites={onAddToFavorites} onRemoveFavorite={onRemoveFavorite} />
           </Col>
-        ))}
+        )))
+        }
       </Row>
       <hr />
       <Form onSubmit={handleSubmit} className="row g-3 mb-5" aria-label="A form to change your information">
-        <h2>Want to Update Your Info?</h2>
+        <h3>Want to Update Your Info?</h3>
         <h6 className="text-muted">(Username and Email are required to make updates, but you can still update them here.)</h6>
         <ToastContainer autoClose={3000} theme="colored" />
         {error && <div>{error}</div>}
@@ -261,6 +308,15 @@ export const ProfileView = ({ user, token, setUser, movies, onAddToFavorites, on
         <Button disabled={formData.password !== formData.confirmPassword} type="submit" aria-label="Button to submit updates">Submit</Button>
       </Form >
 
+      <hr className="mb-2" />
+      <Row>
+        <Col>
+          <h2>Do you want to delete your account?</h2>
+          <Form onSubmit={handleDelete}>
+            <Button variant="danger" type="submit" className="mb-5 mt-3">Delete My Account</Button>
+          </Form>
+        </Col>
+      </Row>
     </>
   )
 

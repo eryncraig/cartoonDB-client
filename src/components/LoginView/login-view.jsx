@@ -21,13 +21,32 @@ export const LoginView = ({ onLoggedIn }) => {
       body: JSON.stringify(data)
     }).then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.status >= 400 && response.status < 500) {
+          return response.json().then((data) => {
+            let errorMessage;
+            switch (response.status) {
+              case 400:
+                errorMessage = data.message || "Invalid username or password. Please register if you don't have an account.";
+                break;
+              case 401:
+                errorMessage = "Unauthorized access. Please check your credentials.";
+                break;
+              case 404:
+                errorMessage = "User not found. Please register.";
+                break;
+              default:
+                errorMessage = "Client error. Please check your input.";
+            }
+            throw new Error(errorMessage)
+          });
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
       }
       return response.json()
     })
       .then((data) => {
-        console.log("Login response: ", data);
-        if (data.user) {
+        if (data && data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token)

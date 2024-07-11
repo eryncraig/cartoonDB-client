@@ -64,7 +64,7 @@ export const SignupView = () => {
         />
       </Form.Group>
       <Form.Group controlId="formName">
-        <Form.Label>
+        <Form.Label className="m-2">
           Name (optional): </Form.Label>
         <Form.Control
           type="text"
@@ -75,7 +75,7 @@ export const SignupView = () => {
         />
       </Form.Group>
       <Form.Group controlId="formPassword">
-        <Form.Label>Password:</Form.Label>
+        <Form.Label className="m-2">Password:</Form.Label>
         <Form.Control
           type="password"
           value={password}
@@ -88,7 +88,7 @@ export const SignupView = () => {
         />
       </Form.Group>
       <Form.Group controlId="formConfirmPassword">
-        <Form.Label>
+        <Form.Label className="m-2">
           Confirm Password: </Form.Label>
         <Form.Control
           type="password"
@@ -105,7 +105,7 @@ export const SignupView = () => {
         )}
       </Form.Group>
       <Form.Group controlId="formEmail">
-        <Form.Label>Email:</Form.Label>
+        <Form.Label className="m-2">Email:</Form.Label>
         <Form.Control
           type="email"
           value={email}
@@ -120,7 +120,7 @@ export const SignupView = () => {
         />
       </Form.Group>
       <Form.Group controlId="formBirthdate">
-        <Form.Label>Birthdate:</Form.Label>
+        <Form.Label className="m-2">Birthdate:</Form.Label>
         <Form.Control
           type="date"
           value={birthdate}
@@ -130,7 +130,7 @@ export const SignupView = () => {
           aria-label="Your birthdate"
         />
       </Form.Group>
-      <Button type="submit" role="button" aria-label="Submit button">Submit</Button>
+      <Button className="m-2" type="submit" role="button" aria-label="Submit button">Submit</Button>
     </Form>
   )
 

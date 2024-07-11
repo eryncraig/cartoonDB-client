@@ -67,7 +67,7 @@ export const LoginView = ({ onLoggedIn }) => {
           aria-label="Enter your password"
         />
       </Form.Group>
-      <Button variant="primary" type="submit" aria-label="Button to log in">Submit</Button>
+      <Button className="m-2" variant="primary" type="submit" aria-label="Button to log in">Submit</Button>
     </Form>
   )
 
